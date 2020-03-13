@@ -29,7 +29,6 @@ bot.on('message', async msg => {
 		console.error(error)
 		msg.reply('there was an error trying to execute that command!')
 	}
-
 })
 
 bot.login(process.env.BOT_TOKEN)

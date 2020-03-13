@@ -5,12 +5,11 @@ module.exports = {
     description: 'A dick joke.',
     execute (msg, args) {
         const joke = dick_jokes[Math.floor(Math.random() * dick_jokes.length)]
-        if (args) {
-            let buff = ''
-            args.forEach(e => {
-                buff+=`@${e},`
-            })
-            msg.channel.send(`${buff} ${joke}`)
+        if (msg.mentions.users.size > 0) {
+            msg.guild.members.fetch(msg.mentions.users.first())
+                .then(member => {
+                    msg.channel.send(`<@${member.id}>, ${joke}`)
+                })
         } else {
             msg.channel.send(joke)
         }
