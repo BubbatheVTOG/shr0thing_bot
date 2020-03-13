@@ -8,9 +8,9 @@ pipeline {
       steps {
         sh '''
         echo "NODE VERSION:"
-        docker run --rm -e CI=true -w /home/node/app -v $PWD:/app node:erbium node --version
+        docker run --rm -e CI=true -w /home/node/app -v $PWD:/home/node/app node:erbium node --version
         echo "NPM VERSION:"
-        docker run --rm -e CI=true -w /home/node/app -v $PWD:/app node:erbium npm --version
+        docker run --rm -e CI=true -w /home/node/app -v $PWD:/home/node/app node:erbium npm --version
         '''
       }
     }
@@ -18,7 +18,7 @@ pipeline {
     stage('Stage 2: Install Build Deps') {
       steps {
         sh '''
-        docker run --rm -e CI=true -w /home/node/app -v $PWD:/app node:erbium npm install
+        docker run --rm -e CI=true -w /home/node/app -v $PWD:/home/node/app node:erbium npm install
         '''
       }
     }
@@ -26,7 +26,7 @@ pipeline {
     stage('Stage 3: Build') {
       steps {
         sh '''
-        docker run --rm -e CI=true -w /home/node/app -v $PWD:/app node:erbium npm run build
+        docker run --rm -e CI=true -w /home/node/app -v $PWD:/home/node/app node:erbium npm run build
         '''
       }
     }
