@@ -15,15 +15,7 @@ pipeline {
       }
     }
 
-    stage('Stage 2: Install Build Deps') {
-      steps {
-        sh '''
-        docker run --rm -e CI=true -w /home/node/app -v $PWD:/home/node/app node:erbium npm install
-        '''
-      }
-    }
-
-    stage ('Stage 3: Build and Publish Docker Image'){
+    stage ('Stage 2: Build and Publish Docker Image'){
       stages {
         stage ("When on Designated Branch") {
           when {
