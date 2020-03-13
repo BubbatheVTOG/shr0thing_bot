@@ -1,0 +1,61 @@
+pipeline {
+
+  agent any
+
+  stages {
+    
+    stage('Stage 1: Echo Build Env') {
+      steps {
+        sh '''
+        echo "NODE VERSION:"
+        docker run --rm -e CI=true -w /home/node/app -v $PWD/react:/home/node/app node:erbium node --version
+        echo "NPM VERSION:"
+        docker run --rm -e CI=true -w /home/node/app -v $PWD/react:/home/node/app node:erbium npm --version
+        '''
+      }
+    }
+
+    stage('Stage 2: Install Build Deps') {
+      steps {
+        sh '''
+        docker run --rm -e CI=true -w /home/node/app -v $PWD/react:/home/node/app node:erbium npm install
+        '''
+      }
+    }
+    
+    stage('Stage 3: Build') {
+      steps {
+        sh '''
+        docker run --rm -e CI=true -w /home/node/app -v $PWD/react:/home/node/app node:erbium npm run build
+        '''
+      }
+    }
+
+    stage ('Stage 4: Build and Publish Docker Image'){
+      stages {
+        stage ("When on Designated Branch") {
+          when {
+            anyOf{
+              branch 'master'
+            }
+          }
+          steps {
+            script {
+              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                app = docker.build("znl2181/shr0thing_bot:"+env.BRANCH_NAME)
+                app.push()
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    always {
+        sh "sudo chmod -R 777 ."
+        cleanWs()
+    } 
+  }
+}
