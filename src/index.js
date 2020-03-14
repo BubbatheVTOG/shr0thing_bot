@@ -4,10 +4,6 @@ const fs = require('fs')
 const commandFiles = fs.readdirSync('src/commands').filter(file => file.endsWith('.js'));
 require('dotenv').config()
 
-bot.once('ready', () => {
-	console.log('Ready!');
-})
-
 bot.commands = new Discord.Collection();
 for (const file of commandFiles) {
 	const cmd = require(`./commands/${file}`);
@@ -43,6 +39,10 @@ bot.on('message', async msg => {
 		console.error(error)
 		msg.reply('there was an error trying to execute that command!')
 	}
+})
+
+bot.once('ready', () => {
+	console.log('Ready!');
 })
 
 bot.login(process.env.BOT_TOKEN)
