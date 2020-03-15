@@ -10,7 +10,7 @@ module.exports = {
             const noun = nouns[Math.floor(Math.random() * nouns.length)]
             msg.guild.members.fetch(msg.mentions.users.first())
                 .then(member => {
-                    msg.channel.send(`<@${member.id}>, slaps you with their ${adjective} ${noun}`)
+                    msg.channel.send(`<@${member.id}> slaps you with their ${adjective} ${noun}`)
                 })
         }
         else {
