@@ -3,7 +3,7 @@ nouns = ['dick', 'penis', 'peen', 'shlong', 'meat', 'cock', 'one-eyed monster', 
 
 module.exports = {
     name: 'poke',
-    description: 'A dick poke.',
+    description: 'A poke.',
     execute (msg, args) {
         if (msg.mentions.users.size > 0) {
             const adjective = adjectives[Math.floor(Math.random() * adjectives.length)]
