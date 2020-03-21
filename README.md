@@ -1,2 +1,2 @@
-# dick_bot
-A discord bot for dick jokes.
+# shr0thing_bot
+A discord bot for jokes.
